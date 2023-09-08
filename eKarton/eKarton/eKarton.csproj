@@ -26,4 +26,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\eKarton.Models\eKarton.Models.csproj" />
+    <ProjectReference Include="..\eKarton.Services\eKarton.Services.csproj" />
+  </ItemGroup>
+
 </Project>
