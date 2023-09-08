@@ -1,3 +1,7 @@
+using eKarton.Services.Databases;
+using eKarton.Services.Service;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,6 +12,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<EKartonContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddTransient<IKorisnikService, KorisnikService>();
+builder.Services.AddAutoMapper(typeof(IKorisnikService));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
