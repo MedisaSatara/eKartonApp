@@ -24,6 +24,6 @@ namespace eKarton.Models.Model
 
         public int BolnicaId { get; set; }
 
-        public virtual Bolnica Bolnica { get; set; } = null!;
+      //  public virtual Bolnica Bolnica { get; set; } = null!;
     }
 }

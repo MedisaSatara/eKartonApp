@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,8 +17,8 @@ namespace eKarton.Models.Model
 
         public int BolnicaId { get; set; }
 
-        public virtual Bolnica Bolnica { get; set; } = null!;
-
+       // public virtual Bolnica Bolnica { get; set; } = null!;
+        [JsonIgnore]
         public virtual ICollection<Doktor> Doktors { get; set; } = new List<Doktor>();
     }
 }

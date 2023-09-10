@@ -1,4 +1,8 @@
-﻿using System;
+﻿using AutoMapper;
+using eKarton.Models.Request;
+using eKarton.Services.Databases;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -7,8 +11,20 @@ using System.Threading.Tasks;
 
 namespace eKarton.Services.Service
 {
-    public class PacijentService
+    public class PacijentService : BaseCRUDService<Models.Model.Pacijent, Databases.Pacijent, PacijentSearchRequest, PacijentInsertRequest, PacijentUpdateRequest>, IPacijentService
     {
+        public PacijentService(EKartonContext context, IMapper mapper)
+        : base(context, mapper)
+        {
+        }
+
+        public override async Task BeforeInsert(Databases.Pacijent entity, PacijentInsertRequest insert)
+        {
+            entity.LozinkaSalt = GenerateSalt();
+            entity.LozinkaHash = GenerateHash(entity.LozinkaSalt, insert.Password);
+        }
+
+
         public static string GenerateSalt()
         {
             RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
@@ -31,5 +47,26 @@ namespace eKarton.Services.Service
             byte[] inArray = algorithm.ComputeHash(dst);
             return Convert.ToBase64String(inArray);
         }
+
+
+      /*  public override IQueryable<Databases.Pacijent> AddInclude(IQueryable<Databases.Pacijent> query, PacijentSearchRequest? search = null)
+        {
+        }*/
+        public override IQueryable<Databases.Pacijent> AddFilter(IQueryable<Databases.Pacijent> query, PacijentSearchRequest? search = null)
+        {
+            var filteredQuery = base.AddFilter(query, search);
+
+            if (!string.IsNullOrWhiteSpace(search?.ImePacijenta))
+            {
+                filteredQuery = filteredQuery.Where(x => x.Ime == search.ImePacijenta);
+            }
+            if (!string.IsNullOrWhiteSpace(search?.PrezimePacijenta))
+            {
+                filteredQuery = filteredQuery.Where(x => x.Prezime == search.PrezimePacijenta);
+            }
+
+            return filteredQuery;
+        }
+
     }
 }

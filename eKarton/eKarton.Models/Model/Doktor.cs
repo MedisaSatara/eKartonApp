@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace eKarton.Models.Model
@@ -28,11 +29,10 @@ namespace eKarton.Models.Model
 
         public int OdjelId { get; set; }
 
-     //   public virtual ICollection<DodjeljeniDoktor> DodjeljeniDoktors { get; set; } = new List<DodjeljeniDoktor>();
+        //   public virtual ICollection<DodjeljeniDoktor> DodjeljeniDoktors { get; set; } = new List<DodjeljeniDoktor>();
 
-      //  public virtual ICollection<OcjenaDoktor> OcjenaDoktors { get; set; } = new List<OcjenaDoktor>();
-
-      //  public virtual Odjel Odjel { get; set; } = null!;
+        //  public virtual ICollection<OcjenaDoktor> OcjenaDoktors { get; set; } = new List<OcjenaDoktor>();
+       // public virtual Odjel Odjel { get; set; } = null!;
 
       //  public virtual ICollection<Pregled> Pregleds { get; set; } = new List<Pregled>();
 
